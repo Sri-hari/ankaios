@@ -17,6 +17,7 @@ jobs:
       run: |
         curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh
 
+    
     - name: Generate SBOM
       run: |
         ./bin/syft . -o spdx-json > sbom.json
