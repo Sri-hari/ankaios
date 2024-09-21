@@ -17,12 +17,11 @@ jobs:
       run: |
         curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh
 
-    
     - name: Generate SBOM
       run: |
         ./bin/syft . -o spdx-json > sbom.json
 
-    - name: Upload SBOM artifact
+    - name: Upload SBOM  artifact
       uses: actions/upload-artifact@v3
       with:
         name: sbom
