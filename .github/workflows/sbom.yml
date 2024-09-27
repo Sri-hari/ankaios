@@ -19,7 +19,7 @@ jobs:
 
     - name: Generate CycloneDX SBOM
       run: |
-        syft . -o cyclonedx-json > sbom.json
+        ./bin/syft . -o cyclonedx-json > sbom.json
 
     - name: Upload SBOM to Dependency-Track
       run: |
