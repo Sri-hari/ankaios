@@ -17,9 +17,17 @@ jobs:
       run: |
         curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh
 
-    - name: Generate SBOM
+    - name: Generate CycloneDX SBOM
       run: |
-        ./bin/syft . -o spdx-json > sbom.json
+        syft . -o cyclonedx-json > sbom.json
+
+    - name: Upload SBOM to Dependency-Track
+      run: |
+        curl -X "POST" "http://34.70.254.198:8080//api/v1/bom" \
+        -H "X-Api-Key: odt_ir13cajIVC5Jnop2MZUvXNpf0K5TvX0J" \
+        -H "Content-Type: multipart/form-data" \
+        -F "project=db6c3292-c9f1-44d2-b049-f93a0fcf4179" \
+        -F "bom=@sbom.json"
 
     - name: Upload SBOM  artifact
       uses: actions/upload-artifact@v3
